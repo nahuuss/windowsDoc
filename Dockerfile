@@ -30,12 +30,12 @@ COPY --chmod=755 ./assets /run/assets
 ADD --chmod=755 https://raw.githubusercontent.com/christgau/wsdd/v0.8/src/wsdd.py /usr/sbin/wsdd
 ADD --chmod=664 https://github.com/qemus/virtiso/releases/download/v0.1.248/virtio-win-0.1.248.tar.xz /drivers.txz
 
-EXPOSE 8006 3389
+EXPOSE 8006 3389 80 443
 VOLUME /storage
 
 ENV RAM_SIZE "4G"
 ENV CPU_CORES "2"
 ENV DISK_SIZE "64G"
-ENV VERSION "win11"
+ENV VERSION "ltsc10"
 
 ENTRYPOINT ["/usr/bin/tini", "-s", "/run/entry.sh"]
