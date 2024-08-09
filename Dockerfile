@@ -22,7 +22,9 @@ RUN set -eu && \
         libxml2-utils && \
     apt-get clean && \
     echo "$VERSION_ARG" > /run/version && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    mkdir -p /storage && \
+    ln -s /run/storage /storage
 
 COPY --chmod=755 ./src /run/
 COPY --chmod=755 ./assets /run/assets
@@ -30,12 +32,13 @@ COPY --chmod=755 ./assets /run/assets
 ADD --chmod=755 https://raw.githubusercontent.com/christgau/wsdd/v0.8/src/wsdd.py /usr/sbin/wsdd
 ADD --chmod=664 https://github.com/qemus/virtiso/releases/download/v0.1.248/virtio-win-0.1.248.tar.xz /drivers.txz
 
-EXPOSE 8006 3389 80 443
-VOLUME /storage
+EXPOSE 8006 3389
 
-ENV RAM_SIZE "4G"
-ENV CPU_CORES "2"
-ENV DISK_SIZE "64G"
-ENV VERSION "ltsc10"
+ENV RAM_SIZE="4G"
+ENV CPU_CORES="2"
+ENV DISK_SIZE="64G"
+ENV VERSION="win11"
+ENV STORAGE="/run/storage"
 
 ENTRYPOINT ["/usr/bin/tini", "-s", "/run/entry.sh"]
+
