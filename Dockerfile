@@ -36,9 +36,8 @@ EXPOSE 8006 3389
 
 ENV RAM_SIZE="4G"
 ENV CPU_CORES="2"
-ENV DISK_SIZE="64G"
+ENV DISK_SIZE="25G"
 ENV VERSION="win11"
 ENV STORAGE="/run/storage"
 
 ENTRYPOINT ["/usr/bin/tini", "-s", "/run/entry.sh"]
-
