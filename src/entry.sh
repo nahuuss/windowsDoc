@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+# Definimos STORAGE dentro del contenedor
+export STORAGE="/app/storage"
+
 : "${BOOT_MODE:="windows"}"
 
 APP="Windows"
