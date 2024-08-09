@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# Definimos STORAGE dentro del contenedor
-export STORAGE="/app/storage"
-
 : "${BOOT_MODE:="windows"}"
 
 APP="Windows"
 SUPPORT="https://github.com/dockur/windows"
 
 cd /run
+
+# Asegurarse de que el directorio /run/storage existe
+mkdir -p /run/storage
+
+# Crear el disco si no existe
+DISK_PATH="/run/storage/disk.qcow2"
+if [ ! -f "$DISK_PATH" ]; then
+    qemu-img create -f qcow2 "$DISK_PATH" 20G
+fi
 
 . reset.sh      # Initialize system
 . define.sh     # Define versions
